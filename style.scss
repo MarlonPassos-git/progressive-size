@@ -1,0 +1,56 @@
+@function flexReverse( $minSize, $maxSize, $mobileWidth: 375, $decktopWidth: 1440) {
+
+    $maxSizePx: $maxSize * 1px;
+    $sizeDifference: $minSize - $maxSize;
+    $screenSizeDifference: $decktopWidth - $mobileWidth;
+    $minSizePx: $minSize * 1px;
+    $decktopWidthPx: $decktopWidth * 1px;
+
+    @return clamp(#{$minSizePx}, calc(#{$minSizePx} + -1 * (#{$sizeDifference} * ((#{$decktopWidthPx} - 100vw) / #{$screenSizeDifference}))), #{$maxSizePx}) 
+}
+
+@function flexForce( $minSize, $maxSize, $mobileWidth: 375, $decktopWidth: 1440) {
+
+    $a: $maxSize * 1px;
+    $b: $minSize - $maxSize;
+    $c: $decktopWidth - $mobileWidth;
+    $d: $minSize * 1px;
+    $e: $decktopWidth * 1px;
+
+    @return clamp(#{$a}, calc(#{$a} + #{$b} * ((#{$e} - 100vw) / #{$c})), #{$d}) 
+}
+
+@function flex($minSize, $maxSize, $mobileWidth: 375, $decktopWidth: 1440, $rem: 16) {
+
+    $a: $mobileWidth / $rem;
+    $b: $decktopWidth / $rem;
+    $c: $minSize / $rem;
+    $d: $maxSize / $rem;
+    $e: ($d - $c) / ($b - $a);
+    $f: $a * - $e + $c;
+    $g: round($f * 10000) / 10000;
+    $h: round($e * 1000000) / 10000 * 1vw;
+
+    @return clamp(#{$c * 1rem}, #{$g * 1rem} + #{$h}, #{$d * 1rem})
+}
+
+$REM: 16;
+$MOBILE_WIDTH: 375;
+$DECKTOP_WIDTH: 1440;
+
+@function pxtoRem($number, $reminPX: REM) {
+    @return $number / $reminPX;
+}
+
+@function progressive($minSizePx, $maxSizePx, $minWidthPx: $MOBILE_WIDTH, $maxWidthPx: DECKTOP_WIDTH) {
+    $minSize: pxtoRem($minSizePx);
+    $maxSize: pxtoRem($maxSizePx);
+    $minWidth: pxtoRem($minWidthPx);
+    $maxWidth: pxtoRem($maxWidthPx);
+    $slope: ($maxSize - $minSize) / ($maxWidth - $minWidth);
+    $yAxisIntersection: -$minWidth * $slope + $minSize;
+    $yAxisIntersectionREM: $yAxisIntersection * 1rem;
+    $slopeVW: $slope * 100vw;
+
+    @return calc( $yAxisIntersectionREM + slopeVW )
+}
