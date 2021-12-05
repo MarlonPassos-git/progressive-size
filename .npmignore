@@ -1,0 +1,7 @@
+src 
+node_modules
+yarn-error
+yarn-error.log
+style.scss
+tsconfig.json
+yarn.lock
