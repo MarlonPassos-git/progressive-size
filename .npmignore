@@ -5,3 +5,5 @@ yarn-error.log
 style.scss
 tsconfig.json
 yarn.lock
+coverage
+__tests__
