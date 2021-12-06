@@ -1,6 +1,6 @@
 {
   "name": "progressive-size",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "author": "marlonpassos",
   "description": "facilita a porra toda com css 😀",
@@ -10,16 +10,19 @@
   },
   "main": "dist",
   "devDependencies": {
-      "rimraf": "^3.0.2",
-      "typescript": "^4.5.2"
+    "rimraf": "^3.0.2",
+    "typescript": "^4.5.2"
   },
   "homepage": "https://github.com/MarlonPassos-git/progressive-size#readme",
   "bugs": {
     "url": "https://github.com/MarlonPassos-git/progressive-size/issues"
   },
   "scripts": {
-      "prebuild": "rimraf dist",
-      "build": "tsc",
-      "watch": "tsc -w"
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "ts-node-dev": "^1.1.8"
   }
 }
